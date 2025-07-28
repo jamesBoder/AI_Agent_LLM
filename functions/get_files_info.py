@@ -126,14 +126,14 @@ def write_file(working_directory, file_path, content):
 	
 
 # Use types.FunctionDeclaration to build teh "declaration" or "schema" of the function
-schema_get_files_info = genai.types.protos.FunctionDeclaration(
+schema_get_files_info = types.FunctionDeclaration(
     name="get_files_info",
     description="Lists files in the specified directory along with their sizes, constrained to the working directory.",
-    parameters=genai.types.protos.Schema(
-        type=genai.types.protos.Type.OBJECT,
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
         properties={
-            "directory": genai.types.protos.Schema(
-                type=genai.types.protos.Type.STRING,
+            "directory": types.Schema(
+                type=types.Type.STRING,
                 description="The directory to list files from, relative to the working directory. If not provided, lists files in the working directory itself.",
             ),
         },
@@ -141,14 +141,14 @@ schema_get_files_info = genai.types.protos.FunctionDeclaration(
 )
 
 # build schema_get_file_content function
-schema_get_file_content = genai.types.protos.FunctionDeclaration(
+schema_get_file_content = types.FunctionDeclaration(
 	name="get_file_content",
 	description="Retrieves the content of a specified file, constrained to the working directory.",
-	parameters=genai.types.protos.Schema(
-		type=genai.types.protos.Type.OBJECT,
+	parameters=types.Schema(
+		type=types.Type.OBJECT,
 		properties={
-			"file_path": genai.types.protos.Schema(
-				type=genai.types.protos.Type.STRING,
+			"file_path": types.Schema(
+				type=types.Type.STRING,
 				description="The path to the file to retrieve content from, relative to the working directory.",
 			),
 		},
@@ -156,18 +156,18 @@ schema_get_file_content = genai.types.protos.FunctionDeclaration(
 )
 
 # build schema_run_python_file function
-schema_run_python_file = genai.types.protos.FunctionDeclaration(
+schema_run_python_file = types.FunctionDeclaration(
 	name="run_python_file",
 	description="runs a Python file and returns its output, constrained to the working directory.",
-	parameters=genai.types.protos.Schema(
-		type=genai.types.protos.Type.OBJECT,
+	parameters=types.Schema(
+		type=types.Type.OBJECT,
 		properties={
-			"file_path": genai.types.protos.Schema(
-				type=genai.types.protos.Type.STRING,
+			"file_path": types.Schema(
+				type=types.Type.STRING,
 				description="The path to the Python file to run, relative to the working directory.",
 			),
-			"content": genai.types.protos.Schema(
-				type=genai.types.protos.Type.STRING,
+			"content": types.Schema(
+				type=types.Type.STRING,
 				description="Executable Python code to run. If provided, this will override the file_path parameter.",
 			),
 		},
@@ -175,32 +175,33 @@ schema_run_python_file = genai.types.protos.FunctionDeclaration(
 )
 
 # build schema_write_file function
-schema_write_file = genai.types.protos.FunctionDeclaration(
+schema_write_file = types.FunctionDeclaration(
 	name="write_file",
 	description="Writes content to a specified file, creating the file if it does not exist, constrained to the working directory.",
-	parameters=genai.types.protos.Schema(
-		type=genai.types.protos.Type.OBJECT,
+	parameters=types.Schema(
+		type=types.Type.OBJECT,
 		properties={
-			"file_path": genai.types.protos.Schema(
-				type=genai.types.protos.Type.STRING,
+			"file_path": types.Schema(
+				type=types.Type.STRING,
 				description="The path to the file to write to, relative to the working directory.",
 			),
-			"content": genai.types.protos.Schema(
-				type=genai.types.protos.Type.STRING,
+			"content": types.Schema(
+				type=types.Type.STRING,
 				description="The content to write to the file.",
 			),
 		},
 	),
 )
 
-available_functions = genai.types.protos.Tool(
+available_functions = types.Tool(
     function_declarations=[
         schema_get_files_info,
 		schema_get_file_content,
 		schema_run_python_file,
-		schema_write_file
+		schema_write_file,
     ]
 )
+
 
 
 # write a function to handle function calls
